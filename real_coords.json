@@ -1,0 +1,266 @@
+{
+	"cells": [
+		{
+			"cell_number": 1,
+			"x_coord": -2,
+			"y_coord": 1,
+			"type": "source"
+		},
+		{
+			"cell_number": 2,
+			"x_coord": -2,
+			"y_coord": 0,
+			"type": "source"
+		},
+		{
+			"cell_number": 3,
+			"x_coord": -2,
+			"y_coord": -1,
+			"type": "source"
+		},
+		{
+			"cell_number": 4,
+			"x_coord": 0,
+			"y_coord": 1,
+			"type": "node"
+		},
+		{
+			"cell_number": 5,
+			"x_coord": 0,
+			"y_coord": 0,
+			"type": "node"
+		},
+		{
+			"cell_number": 6,
+			"x_coord": 0,
+			"y_coord": -1,
+			"type": "node"
+		},
+		{
+			"cell_number": 7,
+			"x_coord": 2,
+			"y_coord": 1,
+			"type": "shelter"
+		},
+		{
+			"cell_number": 8,
+			"x_coord": 2,
+			"y_coord": 0,
+			"type": "shelter"
+		},
+		{
+			"cell_number": 9,
+			"x_coord": 2,
+			"y_coord": -1,
+			"type": "shelter"
+		},
+		{
+			"cell_number": 10,
+			"x_coord": -2.15,
+			"y_coord": 0.5,
+			"type": "road"
+		},
+		{
+			"cell_number": 11,
+			"x_coord": -1.75,
+			"y_coord": 0.5,
+			"type": "road"
+		},
+		{
+			"cell_number": 12,
+			"x_coord": -2.15,
+			"y_coord": -0.5,
+			"type": "road"
+		},
+		{
+			"cell_number": 13,
+			"x_coord": -1.75,
+			"y_coord": -0.5,
+			"type": "road"
+		},
+		{
+			"cell_number": 14,
+			"x_coord": -1.5,
+			"y_coord": 1.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 15,
+			"x_coord": -1.5,
+			"y_coord": 0.75,
+			"type": "road"
+		},
+		{
+			"cell_number": 16,
+			"x_coord": -1.5,
+			"y_coord": 0.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 17,
+			"x_coord": -1.5,
+			"y_coord": -0.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 18,
+			"x_coord": -1.5,
+			"y_coord": -0.75,
+			"type": "road"
+		},
+		{
+			"cell_number": 19,
+			"x_coord": -1.5,
+			"y_coord": -1.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 20,
+			"x_coord": -0.5,
+			"y_coord": 1.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 21,
+			"x_coord": -0.5,
+			"y_coord": 0.75,
+			"type": "road"
+		},
+		{
+			"cell_number": 22,
+			"x_coord": -0.5,
+			"y_coord": 0.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 23,
+			"x_coord": -0.5,
+			"y_coord": -0.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 24,
+			"x_coord": -0.5,
+			"y_coord": -0.75,
+			"type": "road"
+		},
+		{
+			"cell_number": 25,
+			"x_coord": -0.5,
+			"y_coord": -1.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 26,
+			"x_coord": -0.15,
+			"y_coord": 0.5,
+			"type": "road"
+		},
+		{
+			"cell_number": 27,
+			"x_coord": 0.15,
+			"y_coord": 0.5,
+			"type": "road"
+		},
+		{
+			"cell_number": 28,
+			"x_coord": -0.15,
+			"y_coord": -0.5,
+			"type": "road"
+		},
+		{
+			"cell_number": 29,
+			"x_coord": 0.15,
+			"y_coord": -0.5,
+			"type": "road"
+		},
+		{
+			"cell_number": 36,
+			"x_coord": 1.5,
+			"y_coord": 1.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 37,
+			"x_coord": 1.5,
+			"y_coord": 0.75,
+			"type": "road"
+		},
+		{
+			"cell_number": 38,
+			"x_coord": 1.5,
+			"y_coord": 0.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 39,
+			"x_coord": 1.5,
+			"y_coord": -0.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 40,
+			"x_coord": 1.5,
+			"y_coord": -0.75,
+			"type": "road"
+		},
+		{
+			"cell_number": 41,
+			"x_coord": 1.5,
+			"y_coord": -1.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 30,
+			"x_coord": 0.5,
+			"y_coord": 1.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 31,
+			"x_coord": 0.5,
+			"y_coord": 0.75,
+			"type": "road"
+		},
+		{
+			"cell_number": 32,
+			"x_coord": 0.5,
+			"y_coord": 0.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 33,
+			"x_coord": 0.5,
+			"y_coord": -0.15,
+			"type": "road"
+		},
+		{
+			"cell_number": 34,
+			"x_coord": 0.5,
+			"y_coord": -0.75,
+			"type": "road"
+		},
+		{
+			"cell_number": 35,
+			"x_coord": 0.5,
+			"y_coord": -1.15,
+			"type": "road"
+		}
+	],
+	"disaster": {
+		"x_coord": -2,
+		"y_coord": -0.5,
+		"velocity_in_kmh": 10,
+		"direction": "+x",
+		"radius_in_meters": 115
+	},
+	"setting": {
+		"unit_length_in_meters": 115,
+		"time_step_length_in_secs": 2,
+		"n_time_steps": 10,
+		"geo_center": {
+			"lat": 32.82546887219866,
+			"lon": -96.77743440583806
+		}
+	}
+}
