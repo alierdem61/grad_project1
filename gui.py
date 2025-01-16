@@ -138,7 +138,7 @@ class FileSelectorApp:
         except requests.ConnectionError:
             pass  # Server may not be running
         if self.server_process:
-            self.server_process.terminate()  # Terminate if still running
+            self.server_process.kill()  # Terminate if still running
             self.server_process = None
 
 
