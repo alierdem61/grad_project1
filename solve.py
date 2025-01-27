@@ -74,7 +74,7 @@ if __name__ == "__main__":
     dat_file = sys.argv[2]
 
     # Path to oplrun executable
-    opl_executable = "/home/alierdem/cplex/opl/bin/x86-64_linux/oplrun"
+    opl_executable = ""
 
     # Run the OPL model and generate CSV files
     run_opl_and_generate_csv(opl_executable, mod_file, dat_file)

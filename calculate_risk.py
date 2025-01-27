@@ -2,8 +2,11 @@ import math
 import numpy as np
 import json
 
+# Enter the path of the JSON file here
+json_path = 'toy_info.json'
+
 # Load data from JSON file
-with open('real_coords.json', 'r') as f:
+with open(json_path, 'r') as f:
     data = json.load(f)
 
 # Extract necessary data

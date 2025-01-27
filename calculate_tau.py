@@ -1,115 +1,78 @@
-import math
 import numpy as np
-import json
-import networkx as nx
 
-# Load data from JSON file
-with open('real_coords.json', 'r') as f:
-    data = json.load(f)
+def floyd_warshall(nodes, edges):
+    # Initialize the distance matrix with infinity
+    n = len(nodes)
+    distance = np.full((n, n), float('inf'))
 
-# Extract necessary data
-cells = data['cells']
-disaster = data['disaster']
-settings = data['setting']
+    # Map nodes to indices for easier matrix manipulation
+    node_to_index = {node: i for i, node in enumerate(nodes)}
 
-# Settings
-unit_length = settings['unit_length_in_meters']
-time_step_length = settings['time_step_length_in_secs']
-n_time_steps = settings['n_time_steps']
-disaster_speed = disaster['velocity_in_kmh'] * 1000 / 3600  # convert to m/s
-direction = disaster['direction']
-disaster_radius = disaster['radius_in_meters']
+    # Distance to self is zero
+    for i in range(n):
+        distance[i][i] = 0
 
-# Initial disaster position
-disaster_x = disaster['x_coord'] * unit_length
-disaster_y = disaster['y_coord'] * unit_length
+    # Set distances for the given edges
+    for edge in edges:
+        node1, node2, weight = edge
+        i, j = node_to_index[node1], node_to_index[node2]
+        distance[i][j] = weight
+        distance[j][i] = weight  # Since the graph is undirected
 
-# Example node connectivity for tau computation
-connections = [
-    (1, 2, 'arterial'),
-    (2, 1, 'arterial'),
+    # Floyd-Warshall algorithm
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
 
-    (2, 3, 'arterial'),
-    (3, 2, 'arterial'),
+    return distance
 
-    (3, 6, 'arterial'),
-    (6, 3, 'arterial'),
+# Read graph data from a file
+def read_graph_from_file(filename):
+    with open(filename, 'r') as file:
+        lines = file.readlines()
 
-    (6, 9, 'arterial'),
-    (9, 6, 'arterial'),
+    # First line contains nodes, comma-separated
+    nodes = lines[0].strip().split(',')
 
-    (4, 1, 'arterial'),
-    (1, 4, 'arterial'),
+    # Remaining lines contain edges in the format 'node1 node2 weight'
+    edges = []
+    for line in lines[1:]:
+        parts = line.strip().split()
+        edges.append((parts[0], parts[1], float(parts[2])))
 
-    (7, 4, 'arterial'),
-    (4, 7, 'arterial'),
+    return nodes, edges
 
-    (5, 2, 'arterial'),
-    (2, 5, 'arterial'),
+# Main function
+if __name__ == "__main__":
+    filename = input("Enter the filename containing the graph data: ")
+    nodes, edges = read_graph_from_file(filename)
 
-    (5, 4, 'arterial'),
-    (4, 5, 'arterial'),
+    # Calculate shortest paths
+    distance_matrix = floyd_warshall(nodes, edges)
 
-    (6, 5, 'arterial'),
-    (5, 6, 'arterial'),
+    # Output the result as a two-dimensional array
+    print("\nShortest path matrix:")
+    output_filename = "shortest_path_output.txt"
+    largest_values_filename = "largest_values_output.txt"
+    with open(output_filename, "w") as outfile:
+        formatted_matrix = []
+        largest_values = []
+        for row in distance_matrix:
+            formatted_row = [int(round(x)) if x < float('inf') else 'inf' for x in row]
+            formatted_matrix.append(formatted_row)
+            largest_values.append(max([x for x in formatted_row if x != 'inf']))
+        
+        # Print and write the matrix as a valid 2D array
+        print(formatted_matrix)
+        outfile.write(str(formatted_matrix))
 
-    (8, 5, 'arterial'),
-    (5, 8, 'arterial'),
+    # Write the largest values to a separate file
+    with open(largest_values_filename, "w") as outfile:
+        print("\nLargest values in each row:")
+        print(largest_values)
+        outfile.write(str(largest_values))
 
-]
-
-# Define speeds (in meters per second)
-speed_lookup = {
-    'local': 36 / 3.6,  # Local streets: 36 km/h
-    'arterial': 72 / 3.6  # Arterial roads: 72 km/h
-}
-
-# Define cell lengths
-cell_length_lookup = {
-    'local': 20,  # Local streets: 20 meters
-    'arterial': 40  # Arterial roads: 40 meters
-}
-
-# Create a directed graph for shortest path computation
-G = nx.DiGraph()
-for start, end, road_type in connections:
-    speed = speed_lookup[road_type]
-    cell_length = cell_length_lookup[road_type]
-    travel_time = math.ceil((cell_length / speed) / time_step_length)  # Calculate travel time in time steps
-    G.add_edge(start, end, weight=travel_time)
-
-# Nodes in Vp (exclude nodes 1 and 3)
-Vp = [2, 4, 5, 6, 7, 8, 9]
-resources = [1, 2]  # Example resources
-
-# Initialize tau and tau_max arrays
-num_nodes = len(Vp)
-num_resources = len(resources)
-tau = np.zeros((num_resources, num_nodes, num_nodes), dtype=int)
-tau_max = np.zeros((num_resources, num_nodes), dtype=int)
-
-# Add high-cost edges for disconnected components
-for n1 in Vp:
-    for n2 in Vp:
-        if n1 != n2 and not nx.has_path(G, n1, n2):
-            G.add_edge(n1, n2, weight=1000)  # High cost for disconnected nodes
-
-# Compute shortest path travel times (tau) using Dijkstra's algorithm
-for p_idx, p in enumerate(resources):
-    for i, n1 in enumerate(Vp):
-        lengths = nx.single_source_dijkstra_path_length(G, n1)
-        for j, n2 in enumerate(Vp):
-            tau[p_idx][i][j] = int(lengths.get(n2, np.inf))  # Use infinity if no path exists
-
-# Compute tau_max values
-for p_idx, p in enumerate(resources):
-    for i, n in enumerate(Vp):
-        tau_max[p_idx][i] = int(np.max(tau[p_idx][i, :]))
-
-# Replace infinities with -1 for readability
-tau = np.where(tau == np.inf, -1, tau).astype(int)
-
-# Print tau and tau_max
-print("3D array tau[p][n1][n2]:", tau.tolist())
-print("2D array tau_max[p][n]:", tau_max.tolist())
+    print(f"The shortest path matrix has been saved to {output_filename}")
+    print(f"The largest values array has been saved to {largest_values_filename}")
 
