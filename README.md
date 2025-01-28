@@ -4,6 +4,7 @@
 ## Authors
 
 **Ali Erdem Akyüz**
+
 **Hüseyin Emre Tığcı**
 
 ## About the project
